@@ -28,6 +28,11 @@ Route::post('/login', function (Request $request) {
 
 })->name('login');
 
+Route::delete('/logout', function (Request $request) {
+    $request->user()->currentAccessToken()->delete();
+    return response()->json(['message' => 'Logged out successfully']);
+})->middleware('auth:sanctum')->name('logout');
+
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
